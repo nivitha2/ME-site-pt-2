@@ -356,19 +356,38 @@
     }
 
     .detail-media {
-      display: flex; flex-direction: column; gap: 1rem;
+      display: flex; flex-direction: column; gap: 0.75rem;
     }
-    .detail-media-placeholder {
-      background: var(--cream-dark);
+    .detail-media img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
       border-radius: 4px;
-      height: 200px;
-      display: flex; align-items: center; justify-content: center;
-      color: var(--text-light);
-      font-size: 0.8rem;
-      letter-spacing: 0.03em;
-      text-align: center;
-      padding: 1rem;
-      line-height: 1.6;
+      display: block;
+    }
+    .detail-media-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+    .detail-media-row img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 4px;
+      display: block;
+    }
+    .detail-media-three {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0.75rem;
+    }
+    .detail-media-three img {
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+      border-radius: 4px;
+      display: block;
     }
 
     .detail-close {
@@ -602,7 +621,10 @@
         </div>
       </div>
       <div class="detail-media">
-        <div class="detail-media-placeholder">📷 Add project photos here<br><small>e.g. &lt;img src="images/cooling-1.jpg"&gt;</small></div>
+        <div class="detail-media-row">
+          <img src="TempHand.JPG" alt="Electric cooling device on palm" />
+          <img src="TempHand.jpeg" alt="Electric cooling device detail" />
+        </div>
       </div>
     </div>
 
@@ -622,7 +644,7 @@
         </div>
       </div>
       <div class="detail-media">
-        <div class="detail-media-placeholder">📷 Add project photos here</div>
+        <img src="TempLogger.png" alt="Non-invasive tympanic temperature logger" />
       </div>
     </div>
 
@@ -644,7 +666,7 @@
         </div>
       </div>
       <div class="detail-media">
-        <div class="detail-media-placeholder">📷 Add research poster / photos here</div>
+        <img src="Whales.png" alt="Blue whale biologging research poster" />
       </div>
     </div>
 
@@ -666,7 +688,7 @@
         </div>
       </div>
       <div class="detail-media">
-        <div class="detail-media-placeholder">📷 Add spectrogram & deployment photos here</div>
+        <img src="Acoustic.png" alt="Shrimphony acoustic biomonitoring spectrogram" />
       </div>
     </div>
 
@@ -687,7 +709,10 @@
         </div>
       </div>
       <div class="detail-media">
-        <div class="detail-media-placeholder">📷 Add game screenshots & hardware photos here</div>
+        <div class="detail-media-row">
+          <img src="Haptics.png" alt="Temperature feedback game hardware" />
+          <img src="Haptics2.JPG" alt="Temperature feedback game interface" />
+        </div>
       </div>
     </div>
 
@@ -708,7 +733,10 @@
         </div>
       </div>
       <div class="detail-media">
-        <div class="detail-media-placeholder">📷 Add robot photos here</div>
+        <div class="detail-media-row">
+          <img src="bot.png" alt="Chef 300 obstacle robot" />
+          <img src="Bot2.jpeg" alt="Chef 300 robot detail" />
+        </div>
       </div>
     </div>
 
@@ -728,7 +756,7 @@
         </div>
       </div>
       <div class="detail-media">
-        <div class="detail-media-placeholder">📷 Add photos here</div>
+        <img src="UselessBox.JPG" alt="The useless box" />
       </div>
     </div>
 
@@ -748,7 +776,10 @@
         </div>
       </div>
       <div class="detail-media">
-        <div class="detail-media-placeholder">📷 Add photos here</div>
+        <div class="detail-media-row">
+          <img src="Rose1.jpeg" alt="Metal rose front view" />
+          <img src="Rose2.jpeg" alt="Metal rose side view" />
+        </div>
       </div>
     </div>
 
@@ -769,7 +800,7 @@
         </div>
       </div>
       <div class="detail-media">
-        <div class="detail-media-placeholder">📷 Add photos here</div>
+        <img src="PourOver.jpeg" alt="Pour over coffee machine" />
       </div>
     </div>
 
@@ -789,7 +820,7 @@
         </div>
       </div>
       <div class="detail-media">
-        <div class="detail-media-placeholder">📷 Add photos here</div>
+        <img src="Bell.jpeg" alt="Fancy brass bell" />
       </div>
     </div>
 
@@ -810,7 +841,11 @@
         </div>
       </div>
       <div class="detail-media">
-        <div class="detail-media-placeholder">📷 Add platform screenshots & site visit photos here</div>
+        <img src="SAF1.png" alt="Sustainable aviation fuel platform" />
+        <div class="detail-media-row">
+          <img src="SAF2.png" alt="SAF facility visit" />
+          <img src="SAF3.jpeg" alt="SAF platform interface" />
+        </div>
       </div>
     </div>
 
@@ -832,7 +867,7 @@
         </div>
       </div>
       <div class="detail-media">
-        <div class="detail-media-placeholder">📷 Add platform screenshots here</div>
+        <div style="background:var(--cream-dark);border-radius:4px;height:200px;display:flex;align-items:center;justify-content:center;color:var(--text-light);font-size:0.85rem;">No image uploaded yet</div>
       </div>
     </div>
 
@@ -880,8 +915,8 @@
   // Column count helper
   function getColCount() {
     const grid = document.getElementById('projectsGrid');
-    const style = getComputedStyle(grid);
-    return style.gridTemplateColumns.split(' ').filter(Boolean).length;
+    const cols = getComputedStyle(grid).gridTemplateColumns.trim().split(/\s+/).length;
+    return Math.max(cols, 1);
   }
 
   // Toggle project detail
@@ -890,23 +925,26 @@
     const detail = document.getElementById('detail-' + id);
     const isOpen = card.classList.contains('active');
 
-    // Close all
+    // Close all open details first
     document.querySelectorAll('.project-detail.open').forEach(d => d.classList.remove('open'));
     document.querySelectorAll('.project-card.active').forEach(c => c.classList.remove('active'));
 
     if (!isOpen) {
       card.classList.add('active');
 
-      // Reposition detail after last card in the same row
+      // Get all currently visible cards (exclude hidden ones and detail panels)
       const grid = document.getElementById('projectsGrid');
-      const visibleCards = [...grid.querySelectorAll('.project-card:not(.hidden)')];
+      const visibleCards = [...grid.querySelectorAll('.project-card')].filter(c => !c.classList.contains('hidden'));
       const idx = visibleCards.indexOf(card);
       const cols = getColCount();
-      const rowLastIdx = Math.min(Math.floor(idx / cols) * cols + cols - 1, visibleCards.length - 1);
-      const lastCardInRow = visibleCards[rowLastIdx];
 
-      if (lastCardInRow) {
-        lastCardInRow.after(detail);
+      // Find the last card in the same visual row
+      const rowEnd = Math.floor(idx / cols) * cols + cols - 1;
+      const lastInRow = visibleCards[Math.min(rowEnd, visibleCards.length - 1)];
+
+      // Move detail panel right after the last card in that row
+      if (lastInRow) {
+        lastInRow.after(detail);
       }
 
       detail.classList.add('open');
@@ -919,4 +957,9 @@
 
   function closeDetail(event, id) {
     event.stopPropagation();
-    document.getElementById('detail-' + id).classList
+    document.getElementById('detail-' + id).classList.remove('open');
+    document.querySelectorAll('.project-card.active').forEach(c => c.classList.remove('active'));
+  }
+</script>
+</body>
+</html>
