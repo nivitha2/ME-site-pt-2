@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nivitha Mavuluri</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #F7F3EC;
+      --cream-dark: #EDE8DF;
+      --cream-mid: #F2EDE5;
+      --green: #6E9E82;
+      --green-light: #A8C9B4;
+      --green-pale: #E8F2EC;
+      --text: #2A2A2A;
+      --text-mid: #5A5A5A;
+      --text-light: #8A8A8A;
+      --border: #DDD8CF;
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans: 'DM Sans', system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      background: var(--cream);
+      color: var(--text);
+      font-family: var(--sans);
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 3rem;
+      background: rgba(247, 243, 236, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      transition: box-shadow 0.3s;
+    }
+    nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
+
+    .nav-logo {
+      font-family: var(--serif);
+      font-weight: 500;
+      font-size: 1.35rem;
+      letter-spacing: 0.03em;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .nav-links { display: flex; align-items: center; gap: 2.2rem; }
+    .nav-links a {
+      font-size: 0.82rem;
+      font-weight: 400;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--text-mid);
+      text-decoration: none;
+      transition: color 0.2s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute; bottom: -3px; left: 0; right: 0; height: 1px;
+      background: var(--green);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.25s ease;
+    }
+    .nav-links a:hover { color: var(--green); }
+    .nav-links a:hover::after { transform: scaleX(1); }
+    .nav-links a.cv-link {
+      background: var(--green);
+      color: white;
+      padding: 0.4rem 1rem;
+      border-radius: 2px;
+      letter-spacing: 0.08em;
+    }
+    .nav-links a.cv-link::after { display: none; }
+    .nav-links a.cv-link:hover { background: #5a8c6e; color: white; }
+
+    /* ABOUT */
+    #about {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 8rem 3rem 5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .about-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+      width: 100%;
+    }
+
+    .about-text { animation: fadeUp 0.9s ease both; }
+    .about-eyebrow {
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--green);
+      font-weight: 400;
+      margin-bottom: 1rem;
+    }
+    .about-name {
+      font-family: var(--serif);
+      font-size: clamp(3rem, 6vw, 5rem);
+      font-weight: 300;
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+    .about-tagline {
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      font-style: italic;
+      color: var(--text-mid);
+      font-weight: 300;
+      margin-bottom: 2rem;
+      letter-spacing: 0.01em;
+    }
+    .about-bio {
+      font-size: 0.95rem;
+      color: var(--text-mid);
+      line-height: 1.85;
+      max-width: 440px;
+    }
+    .about-bio p + p { margin-top: 1rem; }
+
+    .about-photo {
+      animation: fadeUp 0.9s 0.2s ease both;
+      display: flex; justify-content: center;
+    }
+    .photo-frame {
+      position: relative;
+      width: 340px; height: 420px;
+    }
+    .photo-frame::before {
+      content: '';
+      position: absolute;
+      top: -12px; right: -12px;
+      width: 100%; height: 100%;
+      border: 1.5px solid var(--green-light);
+      border-radius: 2px;
+      z-index: 0;
+    }
+    .photo-frame img {
+      position: relative; z-index: 1;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      border-radius: 2px;
+      display: block;
+    }
+    .photo-placeholder {
+      position: relative; z-index: 1;
+      width: 100%; height: 100%;
+      background: var(--cream-dark);
+      border-radius: 2px;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column;
+      gap: 0.5rem;
+      color: var(--text-light);
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+      text-align: center;
+      padding: 1rem;
+      line-height: 1.6;
+    }
+
+    /* DIVIDER */
+    .section-divider {
+      width: 100%; height: 1px;
+      background: var(--border);
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    /* PROJECTS */
+    #projects {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 5rem 3rem 8rem;
+    }
+
+    .section-header { margin-bottom: 3rem; }
+    .section-eyebrow {
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--green);
+      font-weight: 400;
+      margin-bottom: 0.6rem;
+    }
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: 300;
+      letter-spacing: -0.01em;
+      color: var(--text);
+      margin-bottom: 0.8rem;
+    }
+    .section-subtitle {
+      font-size: 0.88rem;
+      color: var(--text-light);
+      font-style: italic;
+    }
+
+    .filter-bar {
+      display: flex; flex-wrap: wrap; gap: 0.5rem;
+      margin-bottom: 2.5rem;
+    }
+    .filter-btn {
+      font-family: var(--sans);
+      font-size: 0.78rem;
+      font-weight: 400;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      padding: 0.45rem 1.1rem;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-mid);
+      border-radius: 100px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .filter-btn:hover { border-color: var(--green); color: var(--green); }
+    .filter-btn.active {
+      background: var(--green);
+      border-color: var(--green);
+      color: white;
+    }
+
+    /* Grid */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+
+    .project-card {
+      background: var(--cream);
+      padding: 1.8rem;
+      cursor: pointer;
+      transition: background 0.2s;
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+      position: relative;
+    }
+    .project-card:hover { background: var(--green-pale); }
+    .project-card.active { background: var(--green-pale); }
+
+    .project-cat {
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--green);
+    }
+    .project-title {
+      font-family: var(--serif);
+      font-size: 1.25rem;
+      font-weight: 400;
+      line-height: 1.3;
+      color: var(--text);
+    }
+    .project-summary {
+      font-size: 0.83rem;
+      color: var(--text-mid);
+      line-height: 1.7;
+      flex: 1;
+    }
+    .project-arrow {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      align-self: flex-end;
+      color: var(--text-light);
+      font-size: 1rem;
+      transition: all 0.2s;
+      flex-shrink: 0;
+    }
+    .project-card:hover .project-arrow,
+    .project-card.active .project-arrow {
+      background: var(--green);
+      border-color: var(--green);
+      color: white;
+    }
+    .project-card.active .project-arrow { transform: rotate(90deg); }
+
+    /* Detail panel */
+    .project-detail {
+      display: none;
+      grid-column: 1 / -1;
+      background: white;
+      border-top: 2px solid var(--green);
+      padding: 2.5rem;
+      position: relative;
+      animation: slideDown 0.3s ease;
+    }
+    .project-detail.open {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+    }
+
+    .detail-cat {
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 0.5rem;
+    }
+    .detail-title {
+      font-family: var(--serif);
+      font-size: 1.7rem;
+      font-weight: 400;
+      margin-bottom: 1.2rem;
+      line-height: 1.2;
+    }
+    .detail-body {
+      font-size: 0.9rem;
+      color: var(--text-mid);
+      line-height: 1.85;
+    }
+    .detail-body p + p { margin-top: 0.8rem; }
+
+    .detail-tags {
+      display: flex; flex-wrap: wrap; gap: 0.4rem;
+      margin-top: 1.5rem;
+    }
+    .detail-tag {
+      font-size: 0.72rem;
+      padding: 0.3rem 0.75rem;
+      background: var(--green-pale);
+      color: var(--green);
+      border-radius: 100px;
+      letter-spacing: 0.04em;
+    }
+
+    .detail-media {
+      display: flex; flex-direction: column; gap: 1rem;
+    }
+    .detail-media-placeholder {
+      background: var(--cream-dark);
+      border-radius: 4px;
+      height: 200px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text-light);
+      font-size: 0.8rem;
+      letter-spacing: 0.03em;
+      text-align: center;
+      padding: 1rem;
+      line-height: 1.6;
+    }
+
+    .detail-close {
+      position: absolute; top: 1rem; right: 1rem;
+      background: none; border: none;
+      cursor: pointer;
+      color: var(--text-light);
+      font-size: 1rem;
+      padding: 0.4rem;
+      transition: color 0.2s;
+      z-index: 2;
+    }
+    .detail-close:hover { color: var(--text); }
+
+    .project-card.hidden { display: none; }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 3rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .footer-name {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      color: var(--text);
+    }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a {
+      font-size: 0.8rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--green); }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1.2rem; }
+      #about { padding: 7rem 1.5rem 4rem; }
+      .about-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .about-photo { order: -1; }
+      .photo-frame { width: 260px; height: 320px; }
+      #projects { padding: 4rem 1.5rem 6rem; }
+      .projects-grid { grid-template-columns: repeat(2, 1fr); }
+      .project-detail.open { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 1rem; text-align: center; }
+    }
+    @media (max-width: 580px) {
+      .nav-links .cv-link { display: none; }
+      .projects-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav id="navbar">
+  <a class="nav-logo" href="#">NM</a>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="cv.pdf" class="cv-link">CV</a>
+  </div>
+</nav>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-inner">
+    <div class="about-text">
+      <p class="about-eyebrow">Mechanical Engineer</p>
+      <h1 class="about-name">Nivitha<br>Mavuluri</h1>
+      <p class="about-tagline">energy storage · mechatronics · controls</p>
+      <div class="about-bio">
+        <p>Hi there! I'm Nivitha, a mechanical engineer with a background in energy storage, mechatronics, and controls.</p>
+        <p>I love to make things — from learning to produce film photos in the darkroom to 3D printing omniwheels.</p>
+        <p>I am interested in understanding how great design can enable technology to be more efficient and cheap.</p>
+      </div>
+    </div>
+    <div class="about-photo">
+      <div class="photo-frame">
+        <!--
+          TO ADD YOUR PHOTO:
+          Replace the div below with:
+          <img src="images/profile.jpg" alt="Nivitha Mavuluri" />
+        -->
+        <img src="IMG_2372.jpeg" alt="Nivitha Mavuluri" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<div style="padding: 0 3rem;"><div class="section-divider"></div></div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-header">
+    <p class="section-eyebrow">Work</p>
+    <h2 class="section-title">Projects</h2>
+    <p class="section-subtitle">Click on a project to learn more.</p>
+  </div>
+
+  <div class="filter-bar">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="biology">Biology × MechE</button>
+    <button class="filter-btn" data-filter="robots">Robots</button>
+    <button class="filter-btn" data-filter="mechanical">Mechanical Design</button>
+    <button class="filter-btn" data-filter="digital">Digital</button>
+  </div>
+
+  <div class="projects-grid" id="projectsGrid">
+
+    <!-- Biology x MechE cards -->
+    <div class="project-card" data-category="biology" data-id="cooling" onclick="toggleProject(this)">
+      <span class="project-cat">Biology × MechE</span>
+      <h3 class="project-title">An Electric Cooling Device — for Humans</h3>
+      <p class="project-summary">A targeted cooling device applying cold to the palms — one of the body's most effective heat-exchange surfaces — delivering measurable reductions in core body temperature.</p>
+      <div class="project-arrow">›</div>
+    </div>
+
+    <div class="project-card" data-category="biology" data-id="tempmonitor" onclick="toggleProject(this)">
+      <span class="project-cat">Biology × MechE</span>
+      <h3 class="project-title">Custom Temperature Monitoring System</h3>
+      <p class="project-summary">A non-invasive tympanic temperature logger for field biologists, eliminating invasive methods and parasitic heat loss with accurate, portable DAQ-stored readings.</p>
+      <div class="project-arrow">›</div>
+    </div>
+
+    <div class="project-card" data-category="biology" data-id="whale" onclick="toggleProject(this)">
+      <span class="project-cat">Biology × MechE</span>
+      <h3 class="project-title">Blue Whale Biologging</h3>
+      <p class="project-summary">Designed improved biologging tags for scientists at Monterey's Hopkins Marine Station to collect long-duration data on blue whale speed, depth, and migration — non-invasive and cost-effective.</p>
+      <div class="project-arrow">›</div>
+    </div>
+
+    <div class="project-card" data-category="biology" data-id="shrimp" onclick="toggleProject(this)">
+      <span class="project-cat">Biology × MechE</span>
+      <h3 class="project-title">Shrimphony: Acoustic Biomonitoring in Australia</h3>
+      <p class="project-summary">An acoustic biomonitoring system using snapping shrimp sounds to assess reef health — deployed in Quandamooka, Australia, with data visualized via spectrogram analysis.</p>
+      <div class="project-arrow">›</div>
+    </div>
+
+    <!-- Robots cards -->
+    <div class="project-card" data-category="robots" data-id="hotcold" onclick="toggleProject(this)">
+      <span class="project-cat">Robots</span>
+      <h3 class="project-title">Hot or Cold: A Video Game with Real Temperature Feedback</h3>
+      <p class="project-summary">A maze game where players hunt for a ghost using haptic temperature feedback on the mouse — replacing visual cues with physical sensation.</p>
+      <div class="project-arrow">›</div>
+    </div>
+
+    <div class="project-card" data-category="robots" data-id="chef" onclick="toggleProject(this)">
+      <span class="project-cat">Robots</span>
+      <h3 class="project-title">The Chef 300: An Obstacle Racing Robot</h3>
+      <p class="project-summary">A robot built to complete a full obstacle course — highlights include launching ping pong balls and autonomously moving a pot between stations.</p>
+      <div class="project-arrow">›</div>
+    </div>
+
+    <div class="project-card" data-category="robots" data-id="useless" onclick="toggleProject(this)">
+      <span class="project-cat">Robots</span>
+      <h3 class="project-title">The Useless Box</h3>
+      <p class="project-summary">A self-closing box that shuts itself the moment it's opened. Every electrical component fits precisely inside. Built to learn feedback loop programming.</p>
+      <div class="project-arrow">›</div>
+    </div>
+
+    <!-- Mechanical Design cards -->
+    <div class="project-card" data-category="mechanical" data-id="rose" onclick="toggleProject(this)">
+      <span class="project-cat">Mechanical Design</span>
+      <h3 class="project-title">Metal Rose</h3>
+      <p class="project-summary">A sculptural rose crafted entirely from sheet metal as a one-of-a-kind Mother's Day gift — a personal project and introduction to sheet metal fabrication processes.</p>
+      <div class="project-arrow">›</div>
+    </div>
+
+    <div class="project-card" data-category="mechanical" data-id="pourover" onclick="toggleProject(this)">
+      <span class="project-cat">Mechanical Design</span>
+      <h3 class="project-title">A Pour Over Machine — Just Add Water!</h3>
+      <p class="project-summary">A compact, fully disassemblable pour-over coffee maker machined from food-grade aluminum — designed for dorm life, built via milling, lathe, and tapping.</p>
+      <div class="project-arrow">›</div>
+    </div>
+
+    <div class="project-card" data-category="mechanical" data-id="bell" onclick="toggleProject(this)">
+      <span class="project-cat">Mechanical Design</span>
+      <h3 class="project-title">A Fancy Brass Bell</h3>
+      <p class="project-summary">A precision-crafted brass bell made using casting, sand blasting, milling, and tapping — a showcase of multi-process traditional machining.</p>
+      <div class="project-arrow">›</div>
+    </div>
+
+    <!-- Digital cards -->
+    <div class="project-card" data-category="digital" data-id="saf" onclick="toggleProject(this)">
+      <span class="project-cat">Digital</span>
+      <h3 class="project-title">Sustainable Aviation Fuel Platform</h3>
+      <p class="project-summary">A book-and-claim web platform solving the SAF supply gap — letting users purchase sustainable aviation fuel credits for private flights. Already used by a Stanford professor.</p>
+      <div class="project-arrow">›</div>
+    </div>
+
+    <div class="project-card" data-category="digital" data-id="daq" onclick="toggleProject(this)">
+      <span class="project-cat">Digital</span>
+      <h3 class="project-title">DAQ for Cryo Compressed Hydrogen Testing</h3>
+      <p class="project-summary">Built during a summer internship at a hydrogen storage company, this web-based DAQ platform collects, stores, and visualizes real-time data from cryo-compressed hydrogen tests at Lawrence Livermore National Laboratory.</p>
+      <div class="project-arrow">›</div>
+    </div>
+
+    <!-- ── ALL DETAIL PANELS ── (placed via JS into the grid at runtime) -->
+
+    <div class="project-detail" id="detail-cooling">
+      <button class="detail-close" onclick="closeDetail(event,'cooling')">✕</button>
+      <div class="detail-text">
+        <p class="detail-cat">Biology × MechE</p>
+        <h3 class="detail-title">An Electric Cooling Device — for Humans</h3>
+        <div class="detail-body">
+          <p>This device targets the palms of the hands, one of the body's most effective heat-exchange surfaces. By applying targeted cold to this area, the system delivers enough cooling to measurably reduce core body temperature by 1.2°C.</p>
+          <p>The design integrates a thermoelectric cooling element with a custom-fit palm interface, making it practical for athletic recovery, heat stress mitigation, and field use.</p>
+        </div>
+        <div class="detail-tags">
+          <span class="detail-tag">Thermal design</span>
+          <span class="detail-tag">Thermoelectrics</span>
+          <span class="detail-tag">Biomedical</span>
+          <span class="detail-tag">Prototyping</span>
+        </div>
+      </div>
+      <div class="detail-media">
+        <div class="detail-media-placeholder">📷 Add project photos here<br><small>e.g. &lt;img src="images/cooling-1.jpg"&gt;</small></div>
+      </div>
+    </div>
+
+    <div class="project-detail" id="detail-tempmonitor">
+      <button class="detail-close" onclick="closeDetail(event,'tempmonitor')">✕</button>
+      <div class="detail-text">
+        <p class="detail-cat">Biology × MechE</p>
+        <h3 class="detail-title">Custom Temperature Monitoring System</h3>
+        <div class="detail-body">
+          <p>A non-invasive tympanic temperature logger designed for field biologists tired of invasive measurement methods (rectal and esophageal). The system eliminates parasitic heat loss to deliver accurate readings, stored directly to a portable DAQ unit.</p>
+          <p>Built for real-world deployment in challenging field conditions where reliability and ease of use are critical.</p>
+        </div>
+        <div class="detail-tags">
+          <span class="detail-tag">Sensing & DAQ</span>
+          <span class="detail-tag">Field instrumentation</span>
+          <span class="detail-tag">Embedded systems</span>
+        </div>
+      </div>
+      <div class="detail-media">
+        <div class="detail-media-placeholder">📷 Add project photos here</div>
+      </div>
+    </div>
+
+    <div class="project-detail" id="detail-whale">
+      <button class="detail-close" onclick="closeDetail(event,'whale')">✕</button>
+      <div class="detail-text">
+        <p class="detail-cat">Biology × MechE</p>
+        <h3 class="detail-title">Blue Whale Biologging</h3>
+        <div class="detail-body">
+          <p>Designed improved biologging tags for scientists at Hopkins Marine Station, Monterey, enabling collection of long-duration data on blue whale speed, depth, and migration patterns.</p>
+          <p>The device was tested in flow tanks and validated via CFD simulations in Fusion 360. An inverted wing modification proved most beneficial in reducing acceleration noise and stabilizing the tag. The design is non-invasive and significantly cheaper than existing solutions.</p>
+        </div>
+        <div class="detail-tags">
+          <span class="detail-tag">CFD / Fusion 360</span>
+          <span class="detail-tag">3D printing</span>
+          <span class="detail-tag">Flow tank testing</span>
+          <span class="detail-tag">Marine biology</span>
+          <span class="detail-tag">Stanford / Hopkins</span>
+        </div>
+      </div>
+      <div class="detail-media">
+        <div class="detail-media-placeholder">📷 Add research poster / photos here</div>
+      </div>
+    </div>
+
+    <div class="project-detail" id="detail-shrimp">
+      <button class="detail-close" onclick="closeDetail(event,'shrimp')">✕</button>
+      <div class="detail-text">
+        <p class="detail-cat">Biology × MechE</p>
+        <h3 class="detail-title">Shrimphony: Acoustic Biomonitoring</h3>
+        <div class="detail-body">
+          <p>Developed an acoustic biomonitoring system that uses snapping shrimp sounds to assess reef health. An acoustically complex (ACI) habitat indicates a healthy and biodiverse ecosystem.</p>
+          <p>The system was successfully deployed in Quandamooka, Australia, with data visualized as spectrograms to detect amplitude peaks and characterize reef health over time.</p>
+        </div>
+        <div class="detail-tags">
+          <span class="detail-tag">Signal processing</span>
+          <span class="detail-tag">Acoustic sensing</span>
+          <span class="detail-tag">Field deployment</span>
+          <span class="detail-tag">Environmental monitoring</span>
+          <span class="detail-tag">Australia</span>
+        </div>
+      </div>
+      <div class="detail-media">
+        <div class="detail-media-placeholder">📷 Add spectrogram & deployment photos here</div>
+      </div>
+    </div>
+
+    <div class="project-detail" id="detail-hotcold">
+      <button class="detail-close" onclick="closeDetail(event,'hotcold')">✕</button>
+      <div class="detail-text">
+        <p class="detail-cat">Robots</p>
+        <h3 class="detail-title">Hot or Cold: Temperature Feedback Game</h3>
+        <div class="detail-body">
+          <p>Designed a video game that replaces visual proximity cues with haptic temperature feedback. Players navigate a maze to hunt for a ghost — guided entirely by warmth and cold sensed through a custom-built mouse interface.</p>
+          <p>The project involved integrating thermoelectric elements with real-time game state, creating a novel interaction paradigm that bridges the digital and physical.</p>
+        </div>
+        <div class="detail-tags">
+          <span class="detail-tag">Haptics</span>
+          <span class="detail-tag">Embedded systems</span>
+          <span class="detail-tag">Game design</span>
+          <span class="detail-tag">C++</span>
+        </div>
+      </div>
+      <div class="detail-media">
+        <div class="detail-media-placeholder">📷 Add game screenshots & hardware photos here</div>
+      </div>
+    </div>
+
+    <div class="project-detail" id="detail-chef">
+      <button class="detail-close" onclick="closeDetail(event,'chef')">✕</button>
+      <div class="detail-text">
+        <p class="detail-cat">Robots</p>
+        <h3 class="detail-title">The Chef 300: Obstacle Racing Robot</h3>
+        <div class="detail-body">
+          <p>Built a fully functional robot capable of navigating and completing a timed obstacle course. Key achievements include a ping pong ball launcher and a mechanism to transport a pot between designated stations.</p>
+          <p>Designed and fabricated as part of a team competition, requiring rapid iteration on both mechanical and electrical systems under time constraints.</p>
+        </div>
+        <div class="detail-tags">
+          <span class="detail-tag">Robotics</span>
+          <span class="detail-tag">Mechanical design</span>
+          <span class="detail-tag">Controls</span>
+          <span class="detail-tag">Team project</span>
+        </div>
+      </div>
+      <div class="detail-media">
+        <div class="detail-media-placeholder">📷 Add robot photos here</div>
+      </div>
+    </div>
+
+    <div class="project-detail" id="detail-useless">
+      <button class="detail-close" onclick="closeDetail(event,'useless')">✕</button>
+      <div class="detail-text">
+        <p class="detail-cat">Robots</p>
+        <h3 class="detail-title">The Useless Box</h3>
+        <div class="detail-body">
+          <p>A self-closing box that shuts itself the moment it is opened. The elegant constraint: the only items that fit inside the box are all of the required electrical components.</p>
+          <p>Built as a hands-on exercise in feedback loop programming, the project reinforced core control systems concepts in a tangible and playful format.</p>
+        </div>
+        <div class="detail-tags">
+          <span class="detail-tag">Feedback control</span>
+          <span class="detail-tag">Embedded systems</span>
+          <span class="detail-tag">Fabrication</span>
+        </div>
+      </div>
+      <div class="detail-media">
+        <div class="detail-media-placeholder">📷 Add photos here</div>
+      </div>
+    </div>
+
+    <div class="project-detail" id="detail-rose">
+      <button class="detail-close" onclick="closeDetail(event,'rose')">✕</button>
+      <div class="detail-text">
+        <p class="detail-cat">Mechanical Design</p>
+        <h3 class="detail-title">Metal Rose</h3>
+        <div class="detail-body">
+          <p>A sculptural rose crafted entirely from sheet metal as a one-of-a-kind Mother's Day gift. The inspiration: my mother dislikes maintaining flowers — watering them, pruning them. So I made her one that would last forever.</p>
+          <p>This project was an introduction to sheet metal fabrication processes, including cutting, forming, and joining thin-gauge metal into delicate organic shapes.</p>
+        </div>
+        <div class="detail-tags">
+          <span class="detail-tag">Sheet metal</span>
+          <span class="detail-tag">Fabrication</span>
+          <span class="detail-tag">Sculptural design</span>
+        </div>
+      </div>
+      <div class="detail-media">
+        <div class="detail-media-placeholder">📷 Add photos here</div>
+      </div>
+    </div>
+
+    <div class="project-detail" id="detail-pourover">
+      <button class="detail-close" onclick="closeDetail(event,'pourover')">✕</button>
+      <div class="detail-text">
+        <p class="detail-cat">Mechanical Design</p>
+        <h3 class="detail-title">A Pour Over Machine — Just Add Water!</h3>
+        <div class="detail-body">
+          <p>A compact, fully disassemblable pour-over coffee maker machined from food-grade aluminum. Designed specifically for dorm life — where space is at a premium and annual moves are a reality.</p>
+          <p>Built using milling, lathe, and tapping processes, with tight tolerances on mating surfaces for a leak-free assembly and clean aesthetic.</p>
+        </div>
+        <div class="detail-tags">
+          <span class="detail-tag">Milling</span>
+          <span class="detail-tag">Lathe</span>
+          <span class="detail-tag">Tapping</span>
+          <span class="detail-tag">Aluminum machining</span>
+        </div>
+      </div>
+      <div class="detail-media">
+        <div class="detail-media-placeholder">📷 Add photos here</div>
+      </div>
+    </div>
+
+    <div class="project-detail" id="detail-bell">
+      <button class="detail-close" onclick="closeDetail(event,'bell')">✕</button>
+      <div class="detail-text">
+        <p class="detail-cat">Mechanical Design</p>
+        <h3 class="detail-title">A Fancy Brass Bell</h3>
+        <div class="detail-body">
+          <p>A precision-crafted brass bell created through a full multi-process workflow: casting, sand blasting, milling, and tapping. Each step required careful attention to material behavior and dimensional tolerances unique to brass.</p>
+        </div>
+        <div class="detail-tags">
+          <span class="detail-tag">Casting</span>
+          <span class="detail-tag">Sand blasting</span>
+          <span class="detail-tag">Milling</span>
+          <span class="detail-tag">Tapping</span>
+        </div>
+      </div>
+      <div class="detail-media">
+        <div class="detail-media-placeholder">📷 Add photos here</div>
+      </div>
+    </div>
+
+    <div class="project-detail" id="detail-saf">
+      <button class="detail-close" onclick="closeDetail(event,'saf')">✕</button>
+      <div class="detail-text">
+        <p class="detail-cat">Digital</p>
+        <h3 class="detail-title">Sustainable Aviation Fuel Platform</h3>
+        <div class="detail-body">
+          <p><strong>Problem:</strong> Demand for sustainable aviation fuel (SAF) exceeds supply, making it difficult for private flyers to access green aviation options.</p>
+          <p><strong>Solution:</strong> A book-and-claim web platform that allows users to purchase SAF credits for private flights, decoupling physical fuel delivery from environmental credit — enabling broader SAF adoption. Already used by a Stanford professor.</p>
+        </div>
+        <div class="detail-tags">
+          <span class="detail-tag">Web development</span>
+          <span class="detail-tag">Sustainability</span>
+          <span class="detail-tag">Aviation</span>
+          <span class="detail-tag">Book & claim</span>
+        </div>
+      </div>
+      <div class="detail-media">
+        <div class="detail-media-placeholder">📷 Add platform screenshots & site visit photos here</div>
+      </div>
+    </div>
+
+    <div class="project-detail" id="detail-daq">
+      <button class="detail-close" onclick="closeDetail(event,'daq')">✕</button>
+      <div class="detail-text">
+        <p class="detail-cat">Digital</p>
+        <h3 class="detail-title">DAQ for Cryo Compressed Hydrogen Testing</h3>
+        <div class="detail-body">
+          <p>Built during a summer internship at a hydrogen storage company, this web-based data acquisition platform collects, stores, and visualizes real-time experiment data from cryo-compressed hydrogen tests run at Lawrence Livermore National Laboratory.</p>
+          <p>Accessible by any team member from anywhere, the platform enables remote monitoring of ongoing experiments and reduces the need for on-site presence during data collection runs.</p>
+        </div>
+        <div class="detail-tags">
+          <span class="detail-tag">DAQ systems</span>
+          <span class="detail-tag">Web development</span>
+          <span class="detail-tag">Hydrogen storage</span>
+          <span class="detail-tag">Data visualization</span>
+          <span class="detail-tag">LLNL internship</span>
+        </div>
+      </div>
+      <div class="detail-media">
+        <div class="detail-media-placeholder">📷 Add platform screenshots here</div>
+      </div>
+    </div>
+
+  </div><!-- /projects-grid -->
+</section>
+
+<div style="padding: 0 3rem;"><div class="section-divider"></div></div>
+<footer>
+  <span class="footer-name">Nivitha Mavuluri</span>
+  <div class="footer-links">
+    <a href="/cdn-cgi/l/email-protection#c3baacb6b183a6aea2aaafeda0acae">Email</a>
+    <a href="https://linkedin.com/in/yourprofile" target="_blank">LinkedIn</a>
+    <a href="cv.pdf">CV</a>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // Nav scroll shadow
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  // Filter
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+
+      // Close open details
+      document.querySelectorAll('.project-detail.open').forEach(d => d.classList.remove('open'));
+      document.querySelectorAll('.project-card.active').forEach(c => c.classList.remove('active'));
+
+      document.querySelectorAll('.project-card').forEach(card => {
+        if (filter === 'all' || card.dataset.category === filter) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    });
+  });
+
+  // Column count helper
+  function getColCount() {
+    const grid = document.getElementById('projectsGrid');
+    const style = getComputedStyle(grid);
+    return style.gridTemplateColumns.split(' ').filter(Boolean).length;
+  }
+
+  // Toggle project detail
+  function toggleProject(card) {
+    const id = card.dataset.id;
+    const detail = document.getElementById('detail-' + id);
+    const isOpen = card.classList.contains('active');
+
+    // Close all
+    document.querySelectorAll('.project-detail.open').forEach(d => d.classList.remove('open'));
+    document.querySelectorAll('.project-card.active').forEach(c => c.classList.remove('active'));
+
+    if (!isOpen) {
+      card.classList.add('active');
+
+      // Reposition detail after last card in the same row
+      const grid = document.getElementById('projectsGrid');
+      const visibleCards = [...grid.querySelectorAll('.project-card:not(.hidden)')];
+      const idx = visibleCards.indexOf(card);
+      const cols = getColCount();
+      const rowLastIdx = Math.min(Math.floor(idx / cols) * cols + cols - 1, visibleCards.length - 1);
+      const lastCardInRow = visibleCards[rowLastIdx];
+
+      if (lastCardInRow) {
+        lastCardInRow.after(detail);
+      }
+
+      detail.classList.add('open');
+
+      setTimeout(() => {
+        detail.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 80);
+    }
+  }
+
+  function closeDetail(event, id) {
+    event.stopPropagation();
+    document.getElementById('detail-' + id).classList
