@@ -126,7 +126,7 @@
     }
     .about-tagline {
       font-family: var(--serif);
-      font-size: 1.05rem;
+      font-size: 1.15rem;
       font-style: italic;
       color: var(--text-mid);
       font-weight: 300;
@@ -134,10 +134,10 @@
       letter-spacing: 0.01em;
     }
     .about-bio {
-      font-size: 0.95rem;
+      font-size: 1.08rem;
       color: var(--text-mid);
       line-height: 1.85;
-      max-width: 440px;
+      max-width: 480px;
     }
     .about-bio p + p { margin-top: 1rem; }
 
@@ -438,6 +438,71 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
+    /* LIGHTBOX */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      background: rgba(0, 0, 0, 0.88);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+      cursor: zoom-out;
+      padding: 2rem;
+    }
+    .lightbox.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 90vh;
+      object-fit: contain;
+      border-radius: 4px;
+      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
+      transform: scale(0.95);
+      transition: transform 0.3s ease;
+    }
+    .lightbox.active img {
+      transform: scale(1);
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      background: none;
+      border: none;
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 1.8rem;
+      cursor: pointer;
+      padding: 0.5rem;
+      transition: color 0.2s;
+      z-index: 1000;
+    }
+    .lightbox-close:hover { color: white; }
+
+    /* Make detail images clickable */
+    .detail-media img {
+      cursor: zoom-in;
+      transition: opacity 0.2s;
+    }
+    .detail-media img:hover {
+      opacity: 0.85;
+    }
+
+    /* Click to enlarge hint */
+    .enlarge-hint {
+      font-size: 0.72rem;
+      color: var(--text-light);
+      letter-spacing: 0.06em;
+      text-align: center;
+      margin-top: 0.5rem;
+      font-style: italic;
+    }
+
     /* RESPONSIVE */
     @media (max-width: 900px) {
       nav { padding: 1rem 1.5rem; }
@@ -464,7 +529,6 @@
   <div class="nav-links">
     <a href="#about">About</a>
     <a href="#projects">Projects</a>
-    <a href="cv.pdf" class="cv-link">CV</a>
   </div>
 </nav>
 
@@ -474,10 +538,10 @@
     <div class="about-text">
       <p class="about-eyebrow">Mechanical Engineer</p>
       <h1 class="about-name">Nivitha<br>Mavuluri</h1>
-      <p class="about-tagline">energy storage · mechatronics · controls</p>
+      <p class="about-tagline">energy storage ¬∑ mechatronics ¬∑ controls</p>
       <div class="about-bio">
         <p>Hi there! I'm Nivitha, a mechanical engineer with a background in energy storage, mechatronics, and controls.</p>
-        <p>I love to make things — from machining fancy coffee tools to my mom's ideal flower. </p>
+        <p>I love to make things ‚Äî from machining fancy coffee tools to my mom's ideal flower. </p>
         <p>I am interested in understanding how great design can enable technology to be more energy efficient and affordable. </p>
       </div>
     </div>
@@ -506,7 +570,7 @@
 
   <div class="filter-bar">
     <button class="filter-btn active" data-filter="all">All</button>
-    <button class="filter-btn" data-filter="biology">Biology × MechE</button>
+    <button class="filter-btn" data-filter="biology">Biology √ó MechE</button>
     <button class="filter-btn" data-filter="robots">Robots</button>
     <button class="filter-btn" data-filter="mechanical">Mechanical Design</button>
     <button class="filter-btn" data-filter="digital">Digital</button>
@@ -516,101 +580,101 @@
 
     <!-- Biology x MechE cards -->
     <div class="project-card" data-category="biology" data-id="cooling" onclick="toggleProject(this)">
-      <span class="project-cat">Biology × MechE</span>
-      <h3 class="project-title">An Electric Cooling Device — for Humans</h3>
-      <p class="project-summary">A targeted cooling device applying cold to the palms — one of the body's most effective heat-exchange surfaces — delivering measurable reductions in core body temperature.</p>
-      <div class="project-arrow">›</div>
+      <span class="project-cat">Biology √ó MechE</span>
+      <h3 class="project-title">An Electric Cooling Device ‚Äî for Humans</h3>
+      <p class="project-summary">A targeted cooling device applying cold to the palms ‚Äî one of the body's most effective heat-exchange surfaces ‚Äî delivering measurable reductions in core body temperature.</p>
+      <div class="project-arrow">‚Ä∫</div>
     </div>
 
     <div class="project-card" data-category="biology" data-id="tempmonitor" onclick="toggleProject(this)">
-      <span class="project-cat">Biology × MechE</span>
+      <span class="project-cat">Biology √ó MechE</span>
       <h3 class="project-title">Custom Temperature Monitoring System</h3>
       <p class="project-summary">A non-invasive tympanic temperature logger for field biologists, eliminating invasive methods and parasitic heat loss with accurate, portable DAQ-stored readings.</p>
-      <div class="project-arrow">›</div>
+      <div class="project-arrow">‚Ä∫</div>
     </div>
 
     <div class="project-card" data-category="biology" data-id="whale" onclick="toggleProject(this)">
-      <span class="project-cat">Biology × MechE</span>
+      <span class="project-cat">Biology √ó MechE</span>
       <h3 class="project-title">Blue Whale Biologging</h3>
-      <p class="project-summary">Designed improved biologging tags for scientists at Monterey's Hopkins Marine Station to collect long-duration data on blue whale speed, depth, and migration — non-invasive and cost-effective.</p>
-      <div class="project-arrow">›</div>
+      <p class="project-summary">Designed improved biologging tags for scientists at Monterey's Hopkins Marine Station to collect long-duration data on blue whale speed, depth, and migration ‚Äî non-invasive and cost-effective.</p>
+      <div class="project-arrow">‚Ä∫</div>
     </div>
 
     <div class="project-card" data-category="biology" data-id="shrimp" onclick="toggleProject(this)">
-      <span class="project-cat">Biology × MechE</span>
+      <span class="project-cat">Biology √ó MechE</span>
       <h3 class="project-title">Shrimphony: Acoustic Biomonitoring in Australia</h3>
-      <p class="project-summary">An acoustic biomonitoring system using snapping shrimp sounds to assess reef health — deployed in Quandamooka, Australia, with data visualized via spectrogram analysis.</p>
-      <div class="project-arrow">›</div>
+      <p class="project-summary">An acoustic biomonitoring system using snapping shrimp sounds to assess reef health ‚Äî deployed in Quandamooka, Australia, with data visualized via spectrogram analysis.</p>
+      <div class="project-arrow">‚Ä∫</div>
     </div>
 
     <!-- Robots cards -->
     <div class="project-card" data-category="robots" data-id="hotcold" onclick="toggleProject(this)">
       <span class="project-cat">Robots</span>
       <h3 class="project-title">Hot or Cold: A Video Game with Real Temperature Feedback</h3>
-      <p class="project-summary">A maze game where players hunt for a ghost using haptic temperature feedback on the mouse — replacing visual cues with physical sensation.</p>
-      <div class="project-arrow">›</div>
+      <p class="project-summary">A maze game where players hunt for a ghost using haptic temperature feedback on the mouse ‚Äî replacing visual cues with physical sensation.</p>
+      <div class="project-arrow">‚Ä∫</div>
     </div>
 
     <div class="project-card" data-category="robots" data-id="chef" onclick="toggleProject(this)">
       <span class="project-cat">Robots</span>
       <h3 class="project-title">The Chef 300: An Obstacle Racing Robot</h3>
-      <p class="project-summary">A robot built to complete a full obstacle course — highlights include launching ping pong balls and autonomously moving a pot between stations.</p>
-      <div class="project-arrow">›</div>
+      <p class="project-summary">A robot built to complete a full obstacle course ‚Äî highlights include launching ping pong balls and autonomously moving a pot between stations.</p>
+      <div class="project-arrow">‚Ä∫</div>
     </div>
 
     <div class="project-card" data-category="robots" data-id="useless" onclick="toggleProject(this)">
       <span class="project-cat">Robots</span>
       <h3 class="project-title">The Useless Box</h3>
       <p class="project-summary">A self-closing box that shuts itself the moment it's opened. Every electrical component fits precisely inside. Built to learn feedback loop programming.</p>
-      <div class="project-arrow">›</div>
+      <div class="project-arrow">‚Ä∫</div>
     </div>
 
     <!-- Mechanical Design cards -->
     <div class="project-card" data-category="mechanical" data-id="rose" onclick="toggleProject(this)">
       <span class="project-cat">Mechanical Design</span>
       <h3 class="project-title">Metal Rose</h3>
-      <p class="project-summary">A sculptural rose crafted entirely from sheet metal as a one-of-a-kind Mother's Day gift — a personal project and introduction to sheet metal fabrication processes.</p>
-      <div class="project-arrow">›</div>
+      <p class="project-summary">A sculptural rose crafted entirely from sheet metal as a one-of-a-kind Mother's Day gift ‚Äî a personal project and introduction to sheet metal fabrication processes.</p>
+      <div class="project-arrow">‚Ä∫</div>
     </div>
 
     <div class="project-card" data-category="mechanical" data-id="pourover" onclick="toggleProject(this)">
       <span class="project-cat">Mechanical Design</span>
-      <h3 class="project-title">A Pour Over Machine — Just Add Water!</h3>
-      <p class="project-summary">A compact, fully disassemblable pour-over coffee maker machined from food-grade aluminum — designed for dorm life, built via milling, lathe, and tapping.</p>
-      <div class="project-arrow">›</div>
+      <h3 class="project-title">A Pour Over Machine ‚Äî Just Add Water!</h3>
+      <p class="project-summary">A compact, fully disassemblable pour-over coffee maker machined from food-grade aluminum ‚Äî designed for dorm life, built via milling, lathe, and tapping.</p>
+      <div class="project-arrow">‚Ä∫</div>
     </div>
 
     <div class="project-card" data-category="mechanical" data-id="bell" onclick="toggleProject(this)">
       <span class="project-cat">Mechanical Design</span>
       <h3 class="project-title">A Fancy Brass Bell</h3>
-      <p class="project-summary">A precision-crafted brass bell made using casting, sand blasting, milling, and tapping — a showcase of multi-process traditional machining.</p>
-      <div class="project-arrow">›</div>
+      <p class="project-summary">A precision-crafted brass bell made using casting, sand blasting, milling, and tapping ‚Äî a showcase of multi-process traditional machining.</p>
+      <div class="project-arrow">‚Ä∫</div>
     </div>
 
     <!-- Digital cards -->
     <div class="project-card" data-category="digital" data-id="saf" onclick="toggleProject(this)">
       <span class="project-cat">Digital</span>
       <h3 class="project-title">Sustainable Aviation Fuel Platform</h3>
-      <p class="project-summary">A book-and-claim web platform solving the SAF supply gap — letting users purchase sustainable aviation fuel credits for private flights. Already used by a Stanford professor.</p>
-      <div class="project-arrow">›</div>
+      <p class="project-summary">A book-and-claim web platform solving the SAF supply gap ‚Äî letting users purchase sustainable aviation fuel credits for private flights. Already used by a Stanford professor.</p>
+      <div class="project-arrow">‚Ä∫</div>
     </div>
 
     <div class="project-card" data-category="digital" data-id="daq" onclick="toggleProject(this)">
       <span class="project-cat">Digital</span>
       <h3 class="project-title">DAQ for Cryo Compressed Hydrogen Testing</h3>
       <p class="project-summary">Built during a summer internship at a hydrogen storage company, this web-based DAQ platform collects, stores, and visualizes real-time data from cryo-compressed hydrogen tests at Lawrence Livermore National Laboratory.</p>
-      <div class="project-arrow">›</div>
+      <div class="project-arrow">‚Ä∫</div>
     </div>
 
-    <!-- ── ALL DETAIL PANELS ── (placed via JS into the grid at runtime) -->
+    <!-- ‚îÄ‚îÄ ALL DETAIL PANELS ‚îÄ‚îÄ (placed via JS into the grid at runtime) -->
 
     <div class="project-detail" id="detail-cooling">
-      <button class="detail-close" onclick="closeDetail(event,'cooling')">✕</button>
+      <button class="detail-close" onclick="closeDetail(event,'cooling')">‚úï</button>
       <div class="detail-text">
-        <p class="detail-cat">Biology × MechE</p>
-        <h3 class="detail-title">An Electric Cooling Device — for Humans</h3>
+        <p class="detail-cat">Biology √ó MechE</p>
+        <h3 class="detail-title">An Electric Cooling Device ‚Äî for Humans</h3>
         <div class="detail-body">
-          <p>This device targets the palms of the hands, one of the body's most effective heat-exchange surfaces. By applying targeted cold to this area, the system delivers enough cooling to measurably reduce core body temperature by 1.2°C.</p>
+          <p>This device targets the palms of the hands, one of the body's most effective heat-exchange surfaces. By applying targeted cold to this area, the system delivers enough cooling to measurably reduce core body temperature by 1.2¬∞C.</p>
           <p>The design integrates a thermoelectric cooling element with a custom-fit palm interface, making it practical for athletic recovery, heat stress mitigation, and field use.</p>
         </div>
         <div class="detail-tags">
@@ -625,13 +689,14 @@
           <img src="TempHand.JPG" alt="Electric cooling device on palm" />
           <img src="TempHand.jpeg" alt="Electric cooling device detail" />
         </div>
+        <p class="enlarge-hint">click to enlarge</p>
       </div>
     </div>
 
     <div class="project-detail" id="detail-tempmonitor">
-      <button class="detail-close" onclick="closeDetail(event,'tempmonitor')">✕</button>
+      <button class="detail-close" onclick="closeDetail(event,'tempmonitor')">‚úï</button>
       <div class="detail-text">
-        <p class="detail-cat">Biology × MechE</p>
+        <p class="detail-cat">Biology √ó MechE</p>
         <h3 class="detail-title">Custom Temperature Monitoring System</h3>
         <div class="detail-body">
           <p>A non-invasive tympanic temperature logger designed for field biologists tired of invasive measurement methods (rectal and esophageal). The system eliminates parasitic heat loss to deliver accurate readings, stored directly to a portable DAQ unit.</p>
@@ -645,13 +710,14 @@
       </div>
       <div class="detail-media">
         <img src="TempLogger.png" alt="Non-invasive tympanic temperature logger" />
+        <p class="enlarge-hint">click to enlarge</p>
       </div>
     </div>
 
     <div class="project-detail" id="detail-whale">
-      <button class="detail-close" onclick="closeDetail(event,'whale')">✕</button>
+      <button class="detail-close" onclick="closeDetail(event,'whale')">‚úï</button>
       <div class="detail-text">
-        <p class="detail-cat">Biology × MechE</p>
+        <p class="detail-cat">Biology √ó MechE</p>
         <h3 class="detail-title">Blue Whale Biologging</h3>
         <div class="detail-body">
           <p>Designed improved biologging tags for scientists at Hopkins Marine Station, Monterey, enabling collection of long-duration data on blue whale speed, depth, and migration patterns.</p>
@@ -667,13 +733,14 @@
       </div>
       <div class="detail-media">
         <img src="Whales.png" alt="Blue whale biologging research poster" />
+        <p class="enlarge-hint">click to enlarge</p>
       </div>
     </div>
 
     <div class="project-detail" id="detail-shrimp">
-      <button class="detail-close" onclick="closeDetail(event,'shrimp')">✕</button>
+      <button class="detail-close" onclick="closeDetail(event,'shrimp')">‚úï</button>
       <div class="detail-text">
-        <p class="detail-cat">Biology × MechE</p>
+        <p class="detail-cat">Biology √ó MechE</p>
         <h3 class="detail-title">Shrimphony: Acoustic Biomonitoring</h3>
         <div class="detail-body">
           <p>Developed an acoustic biomonitoring system that uses snapping shrimp sounds to assess reef health. An acoustically complex (ACI) habitat indicates a healthy and biodiverse ecosystem.</p>
@@ -689,16 +756,17 @@
       </div>
       <div class="detail-media">
         <img src="Acoustic.png" alt="Shrimphony acoustic biomonitoring spectrogram" />
+        <p class="enlarge-hint">click to enlarge</p>
       </div>
     </div>
 
     <div class="project-detail" id="detail-hotcold">
-      <button class="detail-close" onclick="closeDetail(event,'hotcold')">✕</button>
+      <button class="detail-close" onclick="closeDetail(event,'hotcold')">‚úï</button>
       <div class="detail-text">
         <p class="detail-cat">Robots</p>
         <h3 class="detail-title">Hot or Cold: Temperature Feedback Game</h3>
         <div class="detail-body">
-          <p>Designed a video game that replaces visual proximity cues with haptic temperature feedback. Players navigate a maze to hunt for a ghost — guided entirely by warmth and cold sensed through a custom-built mouse interface.</p>
+          <p>Designed a video game that replaces visual proximity cues with haptic temperature feedback. Players navigate a maze to hunt for a ghost ‚Äî guided entirely by warmth and cold sensed through a custom-built mouse interface.</p>
           <p>The project involved integrating thermoelectric elements with real-time game state, creating a novel interaction paradigm that bridges the digital and physical.</p>
         </div>
         <div class="detail-tags">
@@ -713,11 +781,12 @@
           <img src="Haptics.png" alt="Temperature feedback game hardware" />
           <img src="Haptics2.JPG" alt="Temperature feedback game interface" />
         </div>
+        <p class="enlarge-hint">click to enlarge</p>
       </div>
     </div>
 
     <div class="project-detail" id="detail-chef">
-      <button class="detail-close" onclick="closeDetail(event,'chef')">✕</button>
+      <button class="detail-close" onclick="closeDetail(event,'chef')">‚úï</button>
       <div class="detail-text">
         <p class="detail-cat">Robots</p>
         <h3 class="detail-title">The Chef 300: Obstacle Racing Robot</h3>
@@ -737,11 +806,12 @@
           <img src="bot.png" alt="Chef 300 obstacle robot" />
           <img src="Bot2.jpeg" alt="Chef 300 robot detail" />
         </div>
+        <p class="enlarge-hint">click to enlarge</p>
       </div>
     </div>
 
     <div class="project-detail" id="detail-useless">
-      <button class="detail-close" onclick="closeDetail(event,'useless')">✕</button>
+      <button class="detail-close" onclick="closeDetail(event,'useless')">‚úï</button>
       <div class="detail-text">
         <p class="detail-cat">Robots</p>
         <h3 class="detail-title">The Useless Box</h3>
@@ -757,16 +827,17 @@
       </div>
       <div class="detail-media">
         <img src="UselessBox.JPG" alt="The useless box" />
+        <p class="enlarge-hint">click to enlarge</p>
       </div>
     </div>
 
     <div class="project-detail" id="detail-rose">
-      <button class="detail-close" onclick="closeDetail(event,'rose')">✕</button>
+      <button class="detail-close" onclick="closeDetail(event,'rose')">‚úï</button>
       <div class="detail-text">
         <p class="detail-cat">Mechanical Design</p>
         <h3 class="detail-title">Metal Rose</h3>
         <div class="detail-body">
-          <p>A sculptural rose crafted entirely from sheet metal as a one-of-a-kind Mother's Day gift. The inspiration: my mother dislikes maintaining flowers — watering them, pruning them. So I made her one that would last forever.</p>
+          <p>A sculptural rose crafted entirely from sheet metal as a one-of-a-kind Mother's Day gift. The inspiration: my mother dislikes maintaining flowers ‚Äî watering them, pruning them. So I made her one that would last forever.</p>
           <p>This project was an introduction to sheet metal fabrication processes, including cutting, forming, and joining thin-gauge metal into delicate organic shapes.</p>
         </div>
         <div class="detail-tags">
@@ -780,16 +851,17 @@
           <img src="Rose1.jpeg" alt="Metal rose front view" />
           <img src="Rose2.jpeg" alt="Metal rose side view" />
         </div>
+        <p class="enlarge-hint">click to enlarge</p>
       </div>
     </div>
 
     <div class="project-detail" id="detail-pourover">
-      <button class="detail-close" onclick="closeDetail(event,'pourover')">✕</button>
+      <button class="detail-close" onclick="closeDetail(event,'pourover')">‚úï</button>
       <div class="detail-text">
         <p class="detail-cat">Mechanical Design</p>
-        <h3 class="detail-title">A Pour Over Machine — Just Add Water!</h3>
+        <h3 class="detail-title">A Pour Over Machine ‚Äî Just Add Water!</h3>
         <div class="detail-body">
-          <p>A compact, fully disassemblable pour-over coffee maker machined from food-grade aluminum. Designed specifically for dorm life — where space is at a premium and annual moves are a reality.</p>
+          <p>A compact, fully disassemblable pour-over coffee maker machined from food-grade aluminum. Designed specifically for dorm life ‚Äî where space is at a premium and annual moves are a reality.</p>
           <p>Built using milling, lathe, and tapping processes, with tight tolerances on mating surfaces for a leak-free assembly and clean aesthetic.</p>
         </div>
         <div class="detail-tags">
@@ -801,11 +873,12 @@
       </div>
       <div class="detail-media">
         <img src="PourOver.jpeg" alt="Pour over coffee machine" />
+        <p class="enlarge-hint">click to enlarge</p>
       </div>
     </div>
 
     <div class="project-detail" id="detail-bell">
-      <button class="detail-close" onclick="closeDetail(event,'bell')">✕</button>
+      <button class="detail-close" onclick="closeDetail(event,'bell')">‚úï</button>
       <div class="detail-text">
         <p class="detail-cat">Mechanical Design</p>
         <h3 class="detail-title">A Fancy Brass Bell</h3>
@@ -821,17 +894,18 @@
       </div>
       <div class="detail-media">
         <img src="Bell.jpeg" alt="Fancy brass bell" />
+        <p class="enlarge-hint">click to enlarge</p>
       </div>
     </div>
 
     <div class="project-detail" id="detail-saf">
-      <button class="detail-close" onclick="closeDetail(event,'saf')">✕</button>
+      <button class="detail-close" onclick="closeDetail(event,'saf')">‚úï</button>
       <div class="detail-text">
         <p class="detail-cat">Digital</p>
         <h3 class="detail-title">Sustainable Aviation Fuel Platform</h3>
         <div class="detail-body">
           <p><strong>Problem:</strong> Demand for sustainable aviation fuel (SAF) exceeds supply, making it difficult for private flyers to access green aviation options.</p>
-          <p><strong>Solution:</strong> A book-and-claim web platform that allows users to purchase SAF credits for private flights, decoupling physical fuel delivery from environmental credit — enabling broader SAF adoption. Already used by a Stanford professor.</p>
+          <p><strong>Solution:</strong> A book-and-claim web platform that allows users to purchase SAF credits for private flights, decoupling physical fuel delivery from environmental credit ‚Äî enabling broader SAF adoption. Already used by a Stanford professor.</p>
         </div>
         <div class="detail-tags">
           <span class="detail-tag">Web development</span>
@@ -846,11 +920,12 @@
           <img src="SAF2.png" alt="SAF facility visit" />
           <img src="SAF3.jpeg" alt="SAF platform interface" />
         </div>
+        <p class="enlarge-hint">click to enlarge</p>
       </div>
     </div>
 
     <div class="project-detail" id="detail-daq">
-      <button class="detail-close" onclick="closeDetail(event,'daq')">✕</button>
+      <button class="detail-close" onclick="closeDetail(event,'daq')">‚úï</button>
       <div class="detail-text">
         <p class="detail-cat">Digital</p>
         <h3 class="detail-title">DAQ for Cryo Compressed Hydrogen Testing</h3>
@@ -878,13 +953,18 @@
 <footer>
   <span class="footer-name">Nivitha Mavuluri</span>
   <div class="footer-links">
-    <a href="nivithamavuluri@gmail.com">Email</a>
+    <a href="mailto:nivithamavuluri@gmail.com">nivithamavuluri@gmail.com</a>
     <a href="https://www.linkedin.com/in/nivitha-mavuluri" target="_blank">LinkedIn</a>
-    <a href="cv.pdf">CV</a>
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<!-- LIGHTBOX OVERLAY -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+  <img id="lightbox-img" src="" alt="Enlarged view" />
+</div>
+
+<script>
   // Nav scroll shadow
   const navbar = document.getElementById('navbar');
   window.addEventListener('scroll', () => {
@@ -960,6 +1040,29 @@
     document.getElementById('detail-' + id).classList.remove('open');
     document.querySelectorAll('.project-card.active').forEach(c => c.classList.remove('active'));
   }
+
+  // Lightbox
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+
+  document.querySelectorAll('.detail-media img').forEach(img => {
+    img.addEventListener('click', (e) => {
+      e.stopPropagation();
+      lightboxImg.src = img.src;
+      lightboxImg.alt = img.alt;
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+
+  function closeLightbox() {
+    lightbox.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeLightbox();
+  });
 </script>
 </body>
 </html>
